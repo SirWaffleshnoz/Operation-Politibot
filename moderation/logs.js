@@ -5,7 +5,13 @@ module.exports = {
     permission: 1,
     main: function(bot, msg) {
         var caseCount = bot.caseNum.count;
-        var userid = msg.content.split(' ').splice(0)[0];
+        
+        if (msg.mentions.users.first()) {
+            var target = msg.mentions.users.first();
+            var userid = target.id;
+        } else if (!msg.mentions.users.first()) {
+            var userid = msg.content.split(' ').splice(0)[0];
+        }
 
         var log = new Discord.MessageEmbed()
             .setTitle('Moderation Log History')
@@ -24,12 +30,8 @@ module.exports = {
 
         for (let i = 0; i < caseCount; i++) {
             if (bot.logs[i] && bot.logs[i].userid == userid) {
-                if (msg.guild.members.cache.get(bot.logs[i].userid)) {
-                    var targetUsername = msg.guild.members.cache.get(bot.logs[i].userid).user.username;
-                } else{
-                    var targetUsername = bot.logs[i].userid;
-                }
-                log.addField(bot.logs[i].type + ' issued by ' + targetUsername, bot.logs[i].date + '\n' + bot.logs[i].reason + '\nCase ID: ' + bot.logs[i].caseNum)
+                var moderator = msg.guild.members.cache.get(bot.logs[i].moderatorid);
+                log.addField(bot.logs[i].type + ' issued by ' + moderator.user.username, bot.logs[i].date + '\n' + bot.logs[i].reason + '\nCase ID: ' + bot.logs[i].caseNum)
             }
         }
 

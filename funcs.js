@@ -10,7 +10,7 @@ module.exports = (bot) => {
 
 	bot.permLevel = function (msg) {
 		if (msg.author.id == bot.config.owner)
-			return 3;
+			return 4;
 		if (msg.guild.members.cache.get(msg.author.id).roles.cache.some(role => role.id === '854841000480079882') || msg.guild.members.cache.get(msg.author.id).roles.cache.some(role => role.id === '927318500614225920') || msg.guild.members.cache.get(msg.author.id).roles.cache.some(role => role.id === '775501181212295239') || msg.guild.members.cache.get(msg.author.id).roles.cache.some(role => role.id === '893189360105689139'))
 			return 2;
 		else
@@ -176,6 +176,36 @@ module.exports = (bot) => {
 			fs.writeFileSync("./automute.json", JSON.stringify(bot.autoMute, null, 3));
 			console.log("[AUTO MUTE] | AutoMute successfully saved to file!")
 			return "AutoMute successfully saved to file!";
+		}
+	}
+
+	//msgcounts
+	bot.syncMsgCount = function () {
+		bot.msgCount = require('./msgCount.json');
+
+		bot.users.cache.forEach(user => {
+			if (!bot.msgCount[user.id] && !user.bot) {
+				bot.msgCount[user.id] = {
+					count: 0,
+					lastMessage: null
+				}
+			}
+		})
+
+		writeMsgCount();
+
+		setInterval(function () {
+			writeMsgCount();
+		}, 60000);
+
+		function writeMsgCount() {
+			var msgCountJson = fs.readFileSync("./msgCount.json"),
+				msgCountParsed = JSON.parse(msgCountJson)
+			if (JSON.stringify(msgCountParsed) == JSON.stringify(bot.msgCount)) return; // Only writes if there's a difference
+
+			fs.writeFileSync("./msgCount.json", JSON.stringify(bot.msgCount, null, 3));
+			console.log("[COUNTS] | Message counts successfully saved to file!")
+			return "Message counts successfully saved to file!";
 		}
 	}
 

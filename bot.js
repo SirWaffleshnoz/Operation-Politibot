@@ -5,6 +5,7 @@ const readdir = require("fs").readdir;
 
 bot.commands = new Discord.Collection();
 bot.blackjackInProgress = new Set();
+bot.hotTopic = new Date();
 
 readdir('./moderation/', (err, files) => {
 	bot.log(`Loading ${files.length} moderation modules!`);
@@ -171,7 +172,7 @@ bot.on('message', async(msg) => {
 				log.send({
 					embed: mute
 				});
-				log.send("<@&893189360105689139> <@&854841000480079882> **Auto-Mute triggered!!**");
+				log.send("<@&893189360105689139> <@&854841000480079882> <@&927318500614225920> <@&895051017828311100> **Auto-Mute triggered!!**");
 			}
 			
 			} else {
@@ -205,7 +206,7 @@ var bumpReminder = new Discord.MessageEmbed()
     )
     .setFooter(`If any site is down or the links don't work, let other bumpers know!`);
 
-const TARGET_HOUR_B1 = 3;
+const TARGET_HOUR_B1 = 2;
 const TARGET_MINUTE_B1 = 00;
 
 setInterval(function () {
@@ -215,7 +216,7 @@ setInterval(function () {
 	bump.send(bumpReminder)
 }, 60 * 1000); // Check every minute
 
-const TARGET_HOUR_B2 = 9;
+const TARGET_HOUR_B2 = 8;
 const TARGET_MINUTE_B2 = 00;
 
 setInterval(function () {
@@ -225,7 +226,7 @@ setInterval(function () {
 	bump.send(bumpReminder)
 }, 60 * 1000); // Check every minute
 
-const TARGET_HOUR_B3 = 15;
+const TARGET_HOUR_B3 = 14;
 const TARGET_MINUTE_B3 = 00;
 
 setInterval(function () {
@@ -235,7 +236,7 @@ setInterval(function () {
 	bump.send(bumpReminder)
 }, 60 * 1000); // Check every minute
 
-const TARGET_HOUR_B4 = 21;
+const TARGET_HOUR_B4 = 20;
 const TARGET_MINUTE_B4 = 00;
 
 setInterval(function () {

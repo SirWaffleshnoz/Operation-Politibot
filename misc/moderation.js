@@ -18,13 +18,15 @@ module.exports = {
                 { name: `!ban <@user> <reason>`, value: `Bans the targeted user.`},
                 { name: `!logs <user ID>`, value: `Check the moderation history of a given user.`},
                 { name: `!case <case ID>`, value: `View a specific moderation case.`},
-                { name: `!case <case ID> <edit/delete> <input>`, value: `Delete or edit a specific moderation case.`},
+                { name: `!case <case ID> <edit/rewrite/delete> <input>`, value: `Edit, rewrite, or delete a specific moderation case.`},
                 { name: `!userinfo <user ID>`, value: `Returns relevant informations regarding the targeted user.`},
                 { name: `!approve <user ID>`, value: `Approves the targeted user for the 'Member' role.`},
                 { name: `!demographics`, value: `Returns the server demographics.`},
                 { name: `!purge <amount>`, value: `Bulk deletes the specified amount of messages; I *think* the limit is 100, but Discord might have changed it.`},
                 { name: `!lockdown`, value: `Locks most public channels by blocking all members from sending messages.`},
                 { name: `!unlockdown`, value: `Unlocks all channels.`},
+                { name: `!lock`, value: `Locks the channel that the command is used in.`},
+                { name: `!unlock`, value: `Unlocks the channel that the command is used in.`},
             );
         
         msg.channel.send(help);

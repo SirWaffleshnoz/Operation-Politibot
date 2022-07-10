@@ -2,9 +2,9 @@ var Discord = require('discord.js');
 
 module.exports = {
     name: 'approve',
-    permission: 1,
+    permission: 2,
     main: async function (bot, msg) {
-        const rules = bot.emojis.cache.find(emoji => emoji.name == "rules").toString();
+        const tick = bot.emojis.cache.find(emoji => emoji.name == "tickmark").toString();
         var channel = msg.guild.channels.cache.get(bot.config.welcomeChannel); //mod channel
         var log = msg.guild.channels.cache.get(bot.config.logChannel);  //logs the stuff
 
@@ -22,7 +22,7 @@ module.exports = {
                 if (!target.roles.cache.some(role => role.id === '909989200378601472') && target.roles.cache.some(role => role.id === '909988798308433920')) {
                     var logEmbed = new Discord.MessageEmbed()
                         .setAuthor(msg.author.username, msg.author.avatarURL())
-                        .addField('Member approved:', rules + ` **${target} (${target.id}) was approved.**`)
+                        .addField('Member approved:', tick + ` **${target} (${target.id}) was approved.**`)
                         .setFooter(bot.user.username, bot.user.avatarURL())
                         .setTimestamp()
                         .setColor("#FFFFFF");
@@ -40,7 +40,7 @@ module.exports = {
                         embed: logEmbed
                     })
                 } else {
-                    msg.reply('this user has already been approved!');
+                    msg.reply('this user has either already been approved or has not accepted our rules prompt.');
                 }
             } else {
                 msg.reply("target not found! Usage: `!approve [user ID]`\n*Be sure you've correctly copied the user's ID and you're not mentioning them!*");
